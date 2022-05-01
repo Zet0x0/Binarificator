@@ -49,7 +49,7 @@ if QMessageBox.question(
         Qt.AspectRatioMode.KeepAspectRatio,
         Qt.TransformationMode.SmoothTransformation)
 
-result = QImage(image.size(), image.format())
+result = QImage(image.size(), QImage.Format.Format_ARGB32)
 painter = QPainter(result)
 
 if QMessageBox.question(
