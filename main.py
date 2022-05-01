@@ -29,12 +29,9 @@ resultFileName = QFileDialog.getSaveFileName(
 
 if not resultFileName: exit(1)
 
-font = QFontDialog.getFont(QFont("Consolas", 10), None, "",
-                           QFontDialog.FontDialogOption.MonospacedFonts)[0]
-
-if not font: exit(1)
-
-fontMetrics = QFontMetrics(font)
+fontMetrics = QFontMetrics(
+    QFontDialog.getFont(QFont("Consolas", 10), None, "",
+                        QFontDialog.FontDialogOption.MonospacedFonts)[0])
 
 image = QImage(imageFileName)
 
