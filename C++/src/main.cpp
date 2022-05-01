@@ -65,7 +65,7 @@ int main(int argc, char **argv)
             Qt::SmoothTransformation);
     }
 
-    QImage result(image.size(), image.format());
+    QImage result(image.size(), QImage::Format_ARGB32);
     QPainter painter(&result);
 
     if (QMessageBox::question(0, "", "Would you like to change the backround from transparent to something else?") == QMessageBox::Yes)
