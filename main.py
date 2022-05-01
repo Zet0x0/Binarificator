@@ -35,6 +35,8 @@ fontMetrics = QFontMetrics(
 
 image = QImage(imageFileName)
 
+if image.isNull(): exit(1)
+
 if QMessageBox.question(
         None, "",
         "Would you like to resize the image to make zeros and ones less visible? This could affect performance!"
