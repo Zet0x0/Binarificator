@@ -42,8 +42,8 @@ if QMessageBox.question(
         "Would you like to resize the image to make zeros and ones less visible? This could affect performance!"
 ) == QMessageBox.StandardButton.Yes:
     image = image.scaled(
-        image.width() * fontMetrics.boundingRectChar("0").width(),
-        image.height() * fontMetrics.boundingRectChar("0").height(),
+        image.width() * fontMetrics.boundingRect("0").width(),
+        image.height() * fontMetrics.boundingRect("0").height(),
         Qt.AspectRatioMode.KeepAspectRatio,
         Qt.TransformationMode.SmoothTransformation)
 
@@ -57,13 +57,12 @@ if QMessageBox.question(
     color = QColorDialog.getColor(
         0, None, "", QColorDialog.ColorDialogOption.ShowAlphaChannel)
 
-    if color.isValid(): painter.fillRect(result.rect(), color)
+    if color.isValid(): result.fill(color)
 
 startTime = performanceCounter()
 
-for y in range(0, image.height(), fontMetrics.boundingRectChar("0").height()):
-    for x in range(0, image.width(),
-                   fontMetrics.boundingRectChar("0").width()):
+for y in range(0, image.height(), fontMetrics.boundingRect("0").height()):
+    for x in range(0, image.width(), fontMetrics.boundingRect("0").width()):
         color = image.pixelColor(x, y)
 
         if not color.alpha(): continue
