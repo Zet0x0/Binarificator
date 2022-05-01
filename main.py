@@ -65,7 +65,11 @@ startTime = performanceCounter()
 for y in range(0, image.height(), fontMetrics.boundingRectChar("0").height()):
     for x in range(0, image.width(),
                    fontMetrics.boundingRectChar("0").width()):
-        painter.setPen(image.pixel(x, y))
+        color = image.pixelColor(x, y)
+
+        if not color.alpha(): continue
+
+        painter.setPen(color)
         painter.drawText(x, y, str(randInt(0, 1)))
 
         print(
