@@ -47,7 +47,8 @@ int main(int argc, char **argv)
     }
 
     bool ok;
-    QFontMetrics fontMetrics(QFontDialog::getFont(&ok, QFont("Consolas", 10), 0, "", QFontDialog::MonospacedFonts));
+    QFont font = QFontDialog::getFont(&ok, QFont("Consolas", 10));
+    QFontMetrics fontMetrics(font);
 
     QImage image(imageFileName);
 
@@ -67,6 +68,7 @@ int main(int argc, char **argv)
 
     QImage result(image.size(), QImage::Format_ARGB32);
     QPainter painter(&result);
+    QElapsedTimer timer;
 
     if (QMessageBox::question(0, "", "Would you like to change the backround from transparent to something else?") == QMessageBox::Yes)
     {
@@ -78,12 +80,12 @@ int main(int argc, char **argv)
         }
     }
 
-    QElapsedTimer timer;
+    painter.setFont(font);
     timer.start();
 
-    for (int y = 0; y < image.height(); y += fontMetrics.boundingRect("0").height())
+    for (int y = 0; y < image.height(); y += ((fontMetrics.boundingRect("0").height() > fontMetrics.boundingRect("1").height()) ? fontMetrics.boundingRect("0").height() : fontMetrics.boundingRect("1").height()))
     {
-        for (int x = 0; x < image.width(); x += fontMetrics.boundingRect("0").width())
+        for (int x = 0; x < image.width(); x += ((fontMetrics.boundingRect("0").width() > fontMetrics.boundingRect("1").width()) ? fontMetrics.boundingRect("0").width() : fontMetrics.boundingRect("1").width()))
         {
             QColor pixelColor = image.pixelColor(x, y);
 
