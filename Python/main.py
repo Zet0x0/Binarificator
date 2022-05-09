@@ -31,9 +31,8 @@ resultFileName = QFileDialog.getSaveFileName(
 
 if not resultFileName: exit(1)
 
-fontMetrics = QFontMetrics(
-    QFontDialog.getFont(QFont("Consolas", 10), None, "",
-                        QFontDialog.FontDialogOption.MonospacedFonts)[0])
+font = QFontDialog.getFont(QFont("Consolas", 10))[0]
+fontMetrics = QFontMetrics(font)
 
 image = QImage(imageFileName)
 
@@ -51,6 +50,7 @@ if QMessageBox.question(
 
 result = QImage(image.size(), QImage.Format.Format_ARGB32)
 painter = QPainter(result)
+timer = QElapsedTimer()
 
 if QMessageBox.question(
         None, "",
@@ -61,11 +61,21 @@ if QMessageBox.question(
 
     if color.isValid(): result.fill(color)
 
-timer = QElapsedTimer()
+painter.setFont(font)
 timer.start()
 
-for y in range(0, image.height(), fontMetrics.boundingRect("0").height()):
-    for x in range(0, image.width(), fontMetrics.boundingRect("0").width()):
+for y in range(
+        0, image.height(),
+        fontMetrics.boundingRect("0").height()
+        if fontMetrics.boundingRect("0").height() >
+        fontMetrics.boundingRect("1").height() else
+        fontMetrics.boundingRect("1").height()):
+    for x in range(
+            0, image.width(),
+            fontMetrics.boundingRect("0").width()
+            if fontMetrics.boundingRect("0").width() >
+            fontMetrics.boundingRect("1").width() else
+            fontMetrics.boundingRect("1").width()):
         color = image.pixelColor(x, y)
 
         if not color.alpha(): continue
