@@ -108,8 +108,9 @@ BinarificatorTaskWidget::BinarificatorTaskWidget(const BinarificatorTask::Settin
     connect(m_task, &BinarificatorTask::finished, m_stackedWidget,
             [this, settings]
             {
-                m_stateLabel->setText(QString("Finished. Saved to: <b><a href=\"%0\">%0</a></b>")
-                                          .arg(settings.outputFile));
+                m_stateLabel->setText(
+                    QString("Finished. Saved to: <b><a href=\"file:///%0\">%0</a></b>")
+                        .arg(settings.outputFile));
                 m_stackedWidget->setCurrentIndex(1);
                 m_discardButton->setEnabled(true);
             });

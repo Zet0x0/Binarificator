@@ -84,7 +84,7 @@
    <item row="2" column="1">
     <widget class="QPushButton" name="fontButton">
      <property name="text">
-      <string>Consolas, 12pt</string>
+      <string>Consolas, 10pt</string>
      </property>
      <property name="autoDefault">
       <bool>false</bool>
@@ -92,7 +92,7 @@
      <property name="selectedFont" stdset="0">
       <font>
        <family>Consolas</family>
-       <pointsize>12</pointsize>
+       <pointsize>10</pointsize>
       </font>
      </property>
     </widget>
